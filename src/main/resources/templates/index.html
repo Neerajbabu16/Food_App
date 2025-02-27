@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${title}"></title>
+    <link rel="stylesheet" th:href="@{/style.css}" />
+</head>
+<body>
+    <header>
+        <h1>Homemade Food Subscription</h1>
+        <nav>
+            <a th:href="@{/}">Home</a>
+            <a th:href="@{/subscriptions}">Subscriptions</a>
+            <a th:href="@{/orders}">Orders</a>
+            <a th:href="@{/contact}">Contact</a>
+            <a th:href="@{/user_login}">Login</a>
+        </nav>
+    </header>
+
+    <section>
+        <h2>Delicious Homemade Food, Delivered to You!</h2>
+        <p>Choose a subscription plan and enjoy fresh, hygienic meals every day.</p>
+        <a th:href="@{/subscriptions}"><button>Subscribe Now</button></a>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Homemade Food Subscription. All rights reserved.</p>
+    </footer>
+</body>
+</html>
