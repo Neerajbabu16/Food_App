@@ -1,7 +1,5 @@
 package com.project.food_app.controller;
 
-
-
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,22 +13,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.project.food_app.model.User;
 import com.project.food_app.service.UserService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 public class LoginController {
 
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("/user_login")          
-	    public String loginPage() {
+	@GetMapping("/user_login")
+	public String loginPage() {
 		System.out.println("login controller");
-	        return "user_login";
+		return "user_login";
 	}
 
 	@PostMapping("/login")
-	public String login(@RequestParam String email, @RequestParam String password, Model model) {
+	public String login(@RequestParam String email, @RequestParam String password, HttpSession session, Model model) {
 		System.out.println("login controller post");
-		if (userService.authenticate(email, password)) {
+		if (userService.authenticate(email, password, session)) {
 			return "redirect:/";
 		}
 		model.addAttribute("error", "Invalid email or password");
@@ -40,16 +40,16 @@ public class LoginController {
 
 	@GetMapping("/register")
 	public String showRegistrationForm(Model model) {
-		
+
 		model.addAttribute("user", new User());
 		System.out.println("register controller");
 		return "register";
-		
+
 	}
 
 	@PostMapping("/register")
 	public String register(@ModelAttribute User user, Model model) {
-		
+
 		Optional<User> existingUser = userService.findByEmail(user.getEmail());
 		if (existingUser.isPresent()) {
 			model.addAttribute("error", " * Email already registered ");
@@ -60,5 +60,11 @@ public class LoginController {
 		return "redirect:/";
 
 	}
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/user_login";
+	}
+	
 
 }

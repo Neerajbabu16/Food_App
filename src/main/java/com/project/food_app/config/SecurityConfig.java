@@ -17,8 +17,13 @@ public class SecurityConfig {
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		http.csrf(csrf -> csrf.disable()); // Disable CSRF if necessary
-				
+		http.csrf(csrf -> csrf.disable()) // Disable CSRF if necessary
+		.logout(logout -> logout
+                .logoutUrl("/logout") // Define logout URL
+                .logoutSuccessUrl("/") // Redirect to home after logout
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+            );
 
 		return http.build();
 	}
