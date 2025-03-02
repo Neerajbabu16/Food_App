@@ -1,7 +1,5 @@
 package com.project.food_app.model;
 
-
-
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -27,44 +25,81 @@ public class User {
 	private String password_hash;
 	@Column
 	private LocalDateTime created_at = LocalDateTime.now();
+
+	public User() {
+	}
+
+	public User(String name, String email, String phone, String password_hash, LocalDateTime created_at) {
+		super();
+
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+		this.password_hash = password_hash;
+		this.created_at = created_at;
+	}
+
+	public User(Long id, String name, String email, String phone, String password_hash, LocalDateTime created_at) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+		this.password_hash = password_hash;
+		this.created_at = created_at;
+	}
+
+	@Override
+	public String toString() {
+		return " [" + id + "," + name + ", " + email + "," + phone + ", " + password_hash + "]";
+	}
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getPhone() {
 		return phone;
 	}
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
 	public String getPassword_hash() {
 		return password_hash;
 	}
+
 	public void setPassword_hash(String password_hash) {
 		this.password_hash = password_hash;
 	}
+
 	public LocalDateTime getCreated_at() {
 		return created_at;
 	}
+
 	public void setCreated_at(LocalDateTime created_at) {
 		this.created_at = created_at;
 	}
-	
-	
-	
 
 }

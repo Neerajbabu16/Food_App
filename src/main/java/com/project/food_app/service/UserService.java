@@ -2,6 +2,7 @@ package com.project.food_app.service;
 
 
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +12,6 @@ import org.springframework.stereotype.Service;
 import com.project.food_app.model.User;
 import com.project.food_app.repo.UserRepository;
 
-import jakarta.servlet.http.HttpSession;
-
 @Service
 public class UserService {
 
@@ -20,6 +19,11 @@ public class UserService {
 	private UserRepository userRepository;
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+	
+	public List<User> getAllUsers()
+	{
+		return userRepository.findAll();
+	}
 
 	public User registerUser(User user) {
 		user.setPassword_hash(passwordEncoder.encode(user.getPassword_hash()));
@@ -29,9 +33,9 @@ public class UserService {
 	public Optional<User> findByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
-	 public boolean authenticate(String email, String rawPassword ,HttpSession session) {
+	 public boolean authenticate(String email, String rawPassword ) {
 	        Optional<User> user = userRepository.findByEmail(email);
-	        session.setAttribute("loggedInUser", user.get());
+	       // session.setAttribute("loggedInUser", user.get());
 	        return user.isPresent() && passwordEncoder.matches(rawPassword, user.get().getPassword_hash());
 	 }
 
