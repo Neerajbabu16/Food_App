@@ -30,12 +30,14 @@ public class UserService {
 		return userRepository.save(user);
 	}
 
-	public Optional<User> findByEmail(String email) {
-		return userRepository.findByEmail(email);
-	}
+//	public Optional<User> findByEmail(String email) {
+//		System.out.println("findbyemail");
+//		return userRepository.findByEmail(email);
+//	}
 	 public boolean authenticate(String email, String rawPassword ) {
+		 System.out.println("-auth");
 	        Optional<User> user = userRepository.findByEmail(email);
-	       // session.setAttribute("loggedInUser", user.get());
+	        System.out.println("user-auth"+user);
 	        return user.isPresent() && passwordEncoder.matches(rawPassword, user.get().getPassword_hash());
 	 }
 
