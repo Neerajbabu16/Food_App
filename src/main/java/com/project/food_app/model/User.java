@@ -1,6 +1,10 @@
 package com.project.food_app.model;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,7 +15,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -100,6 +104,24 @@ public class User {
 
 	public void setCreated_at(LocalDateTime created_at) {
 		this.created_at = created_at;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		
+		return null;
+	}
+
+	@Override
+	public String getPassword() {
+		
+		return password_hash;
+	}
+
+	@Override
+	public String getUsername() {
+		
+		return email;
 	}
 
 }
